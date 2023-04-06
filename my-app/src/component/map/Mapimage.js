@@ -1,17 +1,20 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, FeatureGroup } from 'react-leaflet';
 import { EditControl } from "react-leaflet-draw";
 import "./Map.css";
 import "leaflet-draw/dist/leaflet.draw.css";
 import L from "leaflet";
 import useGeoLocation from '../hook/useGeolocation';
-//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import eventBus from '../eventBus/EventBus';
+import { OpenStreetMapProvider, GeoSearchControl } from 'leaflet-geosearch';
 
 const mapStyles = {width: '100%',height: '100%'};
 
 function MapFlyTo({ coords, isButtonClicked }) {
     const map = useMap();
-    if (isButtonClicked) {map.flyTo(coords, 8);}
+    if (isButtonClicked) {map.flyTo(coords, 14);}
+    // else {map.flyTo(coords, 4);}
     return null;
 }
 const Map = () => {
@@ -66,9 +69,44 @@ const Map = () => {
         });
     };
 
+    useEffect(() => {    
+        const handleButtonClick = (msg) => {
+            console.log(msg);
+            setIsButtonClicked(!isButtonClicked);
+        };
+        eventBus.on('goToCurLoc', handleButtonClick);
+    
+        return () => {
+          eventBus.off('goToCurLoc', handleButtonClick);
+        };
+      }, [isButtonClicked]);
+
+    const Search = () => {
+        const map = useMap()
+
+        useEffect(() => {
+            const search = new GeoSearchControl({
+                provider: new OpenStreetMapProvider(),
+                // style: 'button',
+                showMarker: true,
+                showPopup: true,
+                autoClose: true,
+                retainZoomLevel: false,
+                animateZoom: true,
+                keepResult: false,
+                searchLabel: 'search'
+            });
+
+            map.addControl(search)
+            return () => map.removeControl(search)
+        }, [])
+
+        return null // don't want anything to show up from this comp
+    }
+
     return (
         <div className='map'>
-            <MapContainer center={[13.084622, 80.248357]} zoom={4} scrollWheelZoom={false} style={mapStyles} mapType='hybrid'>
+            <MapContainer center={[13.084622, 80.248357]} zoom={4} scrollWheelZoom={true} style={mapStyles} mapType='hybrid'>
                 <FeatureGroup>
                     <EditControl
                         position="topright" onCreated={_onCreate} onEdited={_onEdited} onDeleted={_onDeleted}
@@ -85,13 +123,14 @@ const Map = () => {
                     ></Marker>
                 )}
                 <MapFlyTo coords={[location.coordinates.lat,location.coordinates.lng,]} isButtonClicked={isButtonClicked} />
+                <button onClick={handleButtonClick}>
+                    {isButtonClicked ? 'Reset' : 'Current Location'}
+                </button>
+                <Search />
             </MapContainer>
-            <button onClick={handleButtonClick}>
-                {isButtonClicked ? 'Reset Map' : 'Current Location'}
-            </button>
-            <div className='child'>
+            {/* <div className='child'>
                 <pre className="text-left">{JSON.stringify(mapLayers, 0, 2)}</pre>
-            </div>
+            </div> */}
         </div>
     );
 }
