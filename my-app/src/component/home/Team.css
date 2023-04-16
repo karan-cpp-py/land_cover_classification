@@ -1,0 +1,101 @@
+.main {
+    width: 100%;
+    height: 100%;
+}
+
+.h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.heading {
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.heading h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+}
+
+.mentors {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 55%;
+    padding-bottom: 30px;
+}
+
+.students {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30%;
+    padding-bottom: 2px;
+}
+
+.neeraj_sir {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    margin-left: auto;
+}
+
+.mukesh_sir {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+    margin-right: auto;
+}
+
+.karan,
+.nitin,
+.sachin,
+.saksham {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 100%;
+    margin-left: auto;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+.mentorImage {
+    width: 45%;
+    height: 100%;
+    margin-right: auto;
+}
+
+.studentImage {
+    width: 45%;
+    height: 92%;
+    margin-right: auto;
+}
+
+.content {
+    width: 50%;
+    height: 100%;
+    margin-left: auto;
+}

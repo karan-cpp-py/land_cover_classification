@@ -114,8 +114,9 @@ const Map = () => {
                     />
                 </FeatureGroup>
                 <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://api.maptiler.com/maps/hybrid/256/{z}/{x}/{y}.jpg?key=MaT6O8xev0bab98rZqFr"
+                    url="https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}"
+                    maxZoom={20}
+                    subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
                 />
                 {location.loaded && !location.error && (
                     <Marker
@@ -128,9 +129,9 @@ const Map = () => {
                 </button>
                 <Search />
             </MapContainer>
-            {/* <div className='child'>
+            <div className='child'>
                 <pre className="text-left">{JSON.stringify(mapLayers, 0, 2)}</pre>
-            </div> */}
+            </div>
         </div>
     );
 }
