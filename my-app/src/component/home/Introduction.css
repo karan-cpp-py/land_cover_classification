@@ -1,10 +1,27 @@
 .intro {
-  font-size: 16px;
-  line-height: 1.5;
+  width: 100%;
+  height: 90vh;
+  display: flex;
   color: #333;
-  margin: 20px;
-  padding: 20px;
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  background-color: #f8f8f8f3;
+}
+
+.intro-image {
+  width: 50%;
+  height: 100%;
+  padding: 7%;
+}
+
+#intro-image {
+  padding: 3%;
+  box-shadow: rgba(54, 58, 64, 0.2) 8px 8px 32px;
+}
+
+.intro-text {
+  width: 50%;
+  height: 100%;
+  padding: 7%;
+  line-height: 1.75;
+  font-size: 16px;
+  letter-spacing: 1px;
 }

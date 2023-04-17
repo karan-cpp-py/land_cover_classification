@@ -18,14 +18,12 @@ const Home = () => {
     const images = [image1, image2, image3];
     return (
         <div className='main'>
-            {/* <Navbar2 /> */}
-            <div className="header">
+            {/* <div className="header">
                 <img src={image2} alt="Logo" className="logo" />
                 <h1>LAND COVER CLASSIFICATION</h1>
                 <button className="login-button" onClick={handleOnClick}><a href="/login">Login</a></button>
-            </div>
+            </div> */}
             <Introduction />
-            <Slider images={images} />
             <Team />
             <Footer />
         </div>

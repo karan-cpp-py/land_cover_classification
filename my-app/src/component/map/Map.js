@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { connect, useDispatch } from "react-redux";
 import { MapContainer, TileLayer, Marker, Popup, useMap, FeatureGroup } from 'react-leaflet';
 import { EditControl } from "react-leaflet-draw";
 import "./Map.css";
@@ -18,7 +19,7 @@ function MapFlyTo({ coords, isButtonClicked }) {
     // else {map.flyTo(coords, 4);}
     return null;
 }
-const Map = () => {
+const Map = (props) => {
     const [center, setCenter] = useState({ lat: 13.084622, lng: 80.248357 });
     const [mapLayers, setMapLayers] = useState([]);
     const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -27,9 +28,20 @@ const Map = () => {
     const location = useGeoLocation();
 
     const handleButtonClick = () => { setIsButtonClicked(!isButtonClicked); };
+    const set_coordinates = (coords) => { 
+        const latlongs = {
+            'lat1': coords[0]['lat'],
+            'lon1': coords[0]['lng'],
+            'lat2': coords[2]['lat'],
+            'lon2': coords[2]['lng']
+        }
+
+        console.log(latlongs)
+        props.set_coords(latlongs)
+     }
 
     const _onCreate = (e) => {
-        console.log(e);
+        console.log('onCreate');
 
         const { layerType, layer } = e;
         if (layerType === "rectangle") {
@@ -40,10 +52,11 @@ const Map = () => {
                 { id: _leaflet_id, latlngs: layer.getLatLngs()[0] },
             ]);
         }
+        set_coordinates(layer.getLatLngs()[0])
     };
 
     const _onEdited = (e) => {
-        console.log(e);
+        console.log('onEdit');
         const {
             layers: { _layers },
         } = e;
@@ -106,10 +119,6 @@ const Map = () => {
     }
 
     return (
-        <div className='main'>
-            <div className='nav'>
-            <Navbar2/>
-            </div>
             <div className='map'>
                 <MapContainer center={[13.084622, 80.248357]} zoom={4} scrollWheelZoom={true} style={mapStyles} mapType='hybrid'>
                     <FeatureGroup>
@@ -138,8 +147,15 @@ const Map = () => {
                 <pre className="text-left">{JSON.stringify(mapLayers, 0, 2)}</pre>
             </div> */}
             </div>
-        </div>
     );
 }
 
-export default Map;
+const mapStateToProps = (state) => ({ selected_coordinates: state.selected_coordinates });
+
+const mapDispatchToProps = (dispatch) => {
+    return  {
+        set_coords: (coords) => dispatch({ type: "set_coordinates", payload: coords})
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Map);

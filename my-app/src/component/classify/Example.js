@@ -1,3 +1,5 @@
+import React, { useEffect } from 'react';
+import { connect, useDispatch } from "react-redux";
 import html2canvas from "html2canvas";
 import { jsPDF } from "jspdf";
 import image1 from "./image1.jpg";
@@ -5,7 +7,11 @@ import image2 from "./image2.jpg";
 import image3 from "./image3.jpg";
 import "./Example.css"
 
-const ShippingLabel = () => {
+const ShippingLabel = (props) => {
+    useEffect(() => {
+        console.log('Classify Component mounted!');
+        console.log(props.coords)
+    }, []);
 
     // const createPDF = async () => {
     //   const pdf = new jsPDF("portrait", "pt", "a4");
@@ -54,4 +60,10 @@ const ShippingLabel = () => {
 
 };
 
-export default ShippingLabel;
+const mapStateToProps = (state) => {
+    return {
+        coords : state.selected_coordinates
+    }
+}
+
+export default connect(mapStateToProps)(ShippingLabel);

@@ -2,35 +2,38 @@ import React, {useState} from 'react';
 import Modal from '../modal/Modal';
 import "./Navbar.css";
 import eventBus from '../eventBus/EventBus';
+import image from '../../images/image.jpg';
 
 
 const Navbar = (props) => {
-    const [isButtonClicked, setIsButtonClicked] = useState(false);
-
-    const goToCurrentLocation = () => {
-        setIsButtonClicked(!isButtonClicked);
-        eventBus.emit('goToCurLoc', 'Hello from navbar');
-    }
+    // const goToCurrentLocation = () => {
+    //     eventBus.emit('goToCurLoc', 'Hello from navbar');
+    // }
 
     return (
-        <div className='navbar'>
-            <div className = 'navbar-item' style={{height: 12+'%', borderStyle: 'none'}}>
-                Logo and Name
+        <div className='custom-navbar'>
+            <div className = 'nav-logo'>
+                <img src={image} className = 'nav-logo-image'></img>
             </div>
-            <div className = 'navbar-item' style={{borderTop: 'solid '+3+'px'}}>
-                Home
+            <div className = 'nav-title'>
+                Land Cover Classification
             </div>
-            <div className = 'navbar-item'>
-                Search
-            </div>
-            <div className = 'navbar-item' onClick={goToCurrentLocation}>
-                {isButtonClicked ? 'Reset Map' : 'Current Location'}
-            </div>
-            <div className = 'navbar-item'>
-                Classify
-            </div>
-            <div className = 'navbar-item' onClick={() => props.setOpenInstructions(true)}>
-                Instructions
+            <div className = 'nav-menu'>
+                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([true, false, false])}>
+                    Home
+                </div>
+                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, false, true])}>
+                    Classify
+                </div>
+                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, true, false])}>
+                    Map
+                </div>
+                {/* <div className = 'custom-navbar-item' onClick={goToCurrentLocation}>
+                    {isButtonClicked ? 'Reset Map' : 'Current Location'}
+                </div> */}
+                {/* <div className = 'custom-navbar-item' onClick={() => props.setOpenInstructions(true)}>
+                    Instructions
+                </div> */}
             </div>
         </div>
     )
