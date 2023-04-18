@@ -20,8 +20,6 @@ const Introduction = () => {
         <br/>
         <br/>
         <br/>
-        <br/>
-        <br/>
 
         An example of classification of satellite image.
       </div>

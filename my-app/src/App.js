@@ -14,6 +14,7 @@ import Register from './component/register/Register';
 import Home from './component/home/Home';
 import eventBus from './component/eventBus/EventBus';
 import store from './store';
+import Footer from './component/home/Footer';
 
 function App() {
   const [show, setShow] = useState([true, false, false]);
@@ -53,6 +54,7 @@ function App() {
           {/* {show && <Modal setIsOpen={setShow} msgs={msgs} />} */}
           {show[1] && <Map />}
           {show[2] && <Example/>}
+          <Footer />
         </div>
       </div>
     </Provider>

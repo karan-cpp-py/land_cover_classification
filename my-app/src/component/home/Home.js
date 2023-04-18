@@ -7,7 +7,6 @@ import image3 from "./image3.png";
 import Slider from './Slider';
 import Team from './Team';
 import "../home/Home.css";
-import Footer from './Footer';
 import Header from './Header';
 import eventBus from '../eventBus/EventBus';
 
@@ -25,7 +24,6 @@ const Home = () => {
             </div> */}
             <Introduction />
             <Team />
-            <Footer />
         </div>
     )
 }
