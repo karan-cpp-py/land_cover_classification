@@ -19,13 +19,13 @@ const Navbar = (props) => {
                 Land Cover Classification
             </div>
             <div className = 'nav-menu'>
-                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([true, false, false])}>
+                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([true, false, false, false])}>
                     Home
                 </div>
-                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, false, true])}>
+                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, false, false, true])}>
                     Classify
                 </div>
-                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, true, false])}>
+                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, true, false, false])}>
                     Map
                 </div>
                 {/* <div className = 'custom-navbar-item' onClick={goToCurrentLocation}>

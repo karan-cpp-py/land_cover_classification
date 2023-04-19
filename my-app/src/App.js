@@ -18,7 +18,7 @@ import Footer from './component/home/Footer';
 import CropImage from './component/cropImage/CropImage';
 
 function App() {
-  const [show, setShow] = useState([true, false, false]);
+  const [show, setShow] = useState([true, false, false, false]);
   const [flag, setFlag] = useState(false);
   const msgs = ['hello', 'there', 'user'];
   const [user, setLoginUser] = useState({});
@@ -53,8 +53,9 @@ function App() {
           <Navbar setViewToMap={setShow}/>
           {show[0] && <Home />}
           {/* {show && <Modal setIsOpen={setShow} msgs={msgs} />} */}
-          {show[1] && <CropImage />}
-          {show[2] && <Example/>}
+          {show[1] && <Map />}
+          {show[2] && <Example />}
+          {show[3] && <CropImage setViewToMap={setShow}/>}
           <Footer />
         </div>
       </div>

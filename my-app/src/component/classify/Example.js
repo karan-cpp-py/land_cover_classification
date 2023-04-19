@@ -21,6 +21,7 @@ const ShippingLabel = (props) => {
     useEffect(() => {
         console.log('Classify Component mounted!');
         console.log(props.coords)
+        window.scrollTo(0,0)
     }, []);
 
     // const createPDF = async () => {

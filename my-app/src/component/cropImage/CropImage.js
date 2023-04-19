@@ -4,7 +4,7 @@ import "react-image-crop/dist/ReactCrop.css";
 import image1 from "./image2.png"
 import './CropImage.css'
 
-const CropImage = () => {
+const CropImage = (props) => {
 
   const [srcImg, setSrcImg] = useState(image1);
   const [image, setImage] = useState(null);
@@ -36,7 +36,8 @@ const CropImage = () => {
         crop.height
       );
 
-      const base64Image = canvas.toDataURL("image/jpeg");
+
+      const base64Image = canvas.toDataURL("image/jpeg", 1.0);
       setResult(base64Image);
     } catch (e) {
       console.log("Error cropping the image:", e);
@@ -75,6 +76,9 @@ const CropImage = () => {
     URL.revokeObjectURL(url);
   };
 
+  const classify = () => {
+    props.setViewToMap([false, false, true, false])
+  }
 
   return (
     <div className="crop-container">
@@ -86,7 +90,7 @@ const CropImage = () => {
           {srcImg && (
               <div style={{ width: "100%", height: "100%" }}>
                 <ReactCrop
-                  style={{ width: "100%", height: "90%" }}
+                  style={{ width: "100%", height: "100%" }}
                   crop={crop}
                   onChange={(new_crop) => {
                     setCrop(new_crop);
@@ -103,13 +107,15 @@ const CropImage = () => {
         </div>
         <div id='cropped-img' className='image'>
           {result && (
-            <div style={{ width: "100%", height: "100%" }}>
+            <div style={{ width: "100%", height: "90%" }}>
               <img src={result} alt="cropped image" />
             </div>
           )}
-          <button className="downloadButton" onClick={downloadImage}>
-            download
-          </button>
+          <div className='flex-center' style={{ width: "100%", height: "10%" }}>
+            <div className="my-btn flex-center" onClick={classify}>
+              Confirm
+            </div>
+          </div>
         </div>
       </div>
       {/* <div className="row">

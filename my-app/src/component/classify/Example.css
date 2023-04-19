@@ -68,7 +68,7 @@
     background: #fff;
 }
 
-.my-btn {
+#result-container .my-btn {
     width: 12vw;
     height: 7vh;
     background: #2b806a;
@@ -82,7 +82,7 @@
     margin-bottom: 40px;
 }
 
-.my-btn:hover {
+#result-container .my-btn:hover {
     transform: translateY(-10px);
 }
 
