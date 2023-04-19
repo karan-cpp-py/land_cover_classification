@@ -15,6 +15,7 @@ import Home from './component/home/Home';
 import eventBus from './component/eventBus/EventBus';
 import store from './store';
 import Footer from './component/home/Footer';
+import CropImage from './component/cropImage/CropImage';
 
 function App() {
   const [show, setShow] = useState([true, false, false]);
@@ -52,7 +53,7 @@ function App() {
           <Navbar setViewToMap={setShow}/>
           {show[0] && <Home />}
           {/* {show && <Modal setIsOpen={setShow} msgs={msgs} />} */}
-          {show[1] && <Map />}
+          {show[1] && <CropImage />}
           {show[2] && <Example/>}
           <Footer />
         </div>
