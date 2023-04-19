@@ -16,14 +16,26 @@ import eventBus from './component/eventBus/EventBus';
 import store from './store';
 import Footer from './component/home/Footer';
 import CropImage from './component/cropImage/CropImage';
+import BlockUI from './component/blockUI/BlockUI';
 
 function App() {
+  // 0-home, 1-map, 2-result, 3-cropImage
   const [show, setShow] = useState([true, false, false, false]);
   const [flag, setFlag] = useState(false);
-  const msgs = ['hello', 'there', 'user'];
+  const [msg, setMsg] = useState('Loading...');
   const [user, setLoginUser] = useState({});
+  const [isUIBlocked, setBlockUI] = useState(false);
 
+  const startBlockUI = (msg) => {
+    setMsg(msg);
+    setBlockUI(true);
+  }
 
+  const endBlockUI = () => {
+    setBlockUI(false);
+  }
+
+  const blockUI = {start: startBlockUI, end: endBlockUI};
 
   useEffect(() => {
     const showLogin = (msg) => {
@@ -50,12 +62,13 @@ function App() {
               <Route exact path="/classify" element={<Example />}></Route>
             </Routes>
           </Router> */}
-          <Navbar setViewToMap={setShow}/>
+          { isUIBlocked && <BlockUI message={msg}/>}
+          <Navbar setViewToMap={setShow} currentShowMenu={show} blockUI={blockUI}/>
           {show[0] && <Home />}
           {/* {show && <Modal setIsOpen={setShow} msgs={msgs} />} */}
-          {show[1] && <Map />}
+          {show[1] && <Map setViewToMap={setShow} blockUI={blockUI} />}
           {show[2] && <Example />}
-          {show[3] && <CropImage setViewToMap={setShow}/>}
+          {show[3] && <CropImage setViewToMap={setShow} blockUI={blockUI}/>}
           <Footer />
         </div>
       </div>

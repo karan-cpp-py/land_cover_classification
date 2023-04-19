@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Navbar2 from '../navbar/Navbar2'
 import Introduction from './Introduction'
 import image1 from "./image1.png";
@@ -11,6 +11,10 @@ import Header from './Header';
 import eventBus from '../eventBus/EventBus';
 
 const Home = () => {
+    useEffect(() => {
+        window.scrollTo(0,0)
+    }, []);
+    
     const handleOnClick = () => {
         eventBus.emit('goToLogin', 'Hello from navbar');
     }

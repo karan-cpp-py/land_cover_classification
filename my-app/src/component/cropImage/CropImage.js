@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import image1 from "./image2.png"
@@ -77,7 +77,12 @@ const CropImage = (props) => {
   };
 
   const classify = () => {
-    props.setViewToMap([false, false, true, false])
+    props.blockUI.start('Analysing...')
+    new Promise((resolve) => setTimeout(resolve, 5000)).then(() => {
+      console.log('5 seconds have passed');
+      props.blockUI.end();
+      props.setViewToMap([false, false, true, false])
+    });
   }
 
   return (

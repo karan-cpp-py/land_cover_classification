@@ -6,6 +6,8 @@
   align-items: center;
   background: #f0f2f5;
   font-family: Open sans, Arial, sans-serif;
+  position: relative;
+  z-index: 1;
 }
 
 .container {

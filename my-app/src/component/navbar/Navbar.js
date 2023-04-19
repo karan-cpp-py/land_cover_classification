@@ -10,6 +10,15 @@ const Navbar = (props) => {
     //     eventBus.emit('goToCurLoc', 'Hello from navbar');
     // }
 
+    const onSubmit = () => {
+        props.blockUI.start('Fetching Satellite Image...');
+        new Promise((resolve) => setTimeout(resolve, 5000)).then(() => {
+          console.log('5 seconds have passed');
+          props.blockUI.end();
+          props.setViewToMap([false, false, false, true])
+        });
+    }
+
     return (
         <div className='custom-navbar'>
             <div className = 'nav-logo'>
@@ -22,12 +31,12 @@ const Navbar = (props) => {
                 <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([true, false, false, false])}>
                     Home
                 </div>
-                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, false, false, true])}>
-                    Classify
-                </div>
                 <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, true, false, false])}>
                     Map
                 </div>
+                {props.currentShowMenu[1] && <div className = 'custom-navbar-item' onClick={onSubmit}>
+                    Submit
+                </div>}
                 {/* <div className = 'custom-navbar-item' onClick={goToCurrentLocation}>
                     {isButtonClicked ? 'Reset Map' : 'Current Location'}
                 </div> */}
