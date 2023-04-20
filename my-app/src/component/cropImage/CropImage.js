@@ -21,9 +21,12 @@ const CropImage = (props) => {
       const scaleX = image.naturalWidth / image.width;
       const scaleY = image.naturalHeight / image.height;
       const scale = 1;
-      canvas.width = crop.width * scale;
-      canvas.height = crop.height * scale;
+      canvas.width = crop.width * scale * 2;
+      canvas.height = crop.height * scale * 2;
+
       const ctx = canvas.getContext("2d");
+      ctx.imageSmoothingQuality = "high";
+      ctx.imageSmoothingEnabled = true;
       ctx.drawImage(
         image,
         crop.x * scaleX,
@@ -32,12 +35,12 @@ const CropImage = (props) => {
         crop.height * scaleY,
         0,
         0,
-        crop.width,
-        crop.height
+        crop.width * scale * 2,
+        crop.height * scale * 2
       );
 
 
-      const base64Image = canvas.toDataURL("image/jpeg", 1.0);
+      const base64Image = canvas.toDataURL("image/jpeg");
       setResult(base64Image);
     } catch (e) {
       console.log("Error cropping the image:", e);
