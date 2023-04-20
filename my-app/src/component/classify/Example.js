@@ -19,8 +19,6 @@ const ShippingLabel = (props) => {
     ]);
 
     useEffect(() => {
-        console.log('Classify Component mounted!');
-        console.log(props.coords)
         window.scrollTo(0,0)
     }, []);
 
@@ -53,11 +51,11 @@ const ShippingLabel = (props) => {
             <div id='parent-grid'>
                 <div id='selected-img' className='result-item'>
                     <img src={image2} alt="Image 2" className='result-img'/>
-                    <figcaption class='caption'>Selected satellite image</figcaption>
+                    <figcaption className='caption'>Selected satellite image</figcaption>
                 </div>
                 <div id='mask-img' className='result-item'>
                     <img src={image1} alt="Image 1" className='result-img'/>
-                    <figcaption class='caption'>Generated Mask</figcaption>
+                    <figcaption className='caption'>Generated Mask</figcaption>
                 </div>
                 <div id='graph-img' className='result-item flex-center'>
                     <div id='analysis-container'>
@@ -84,8 +82,16 @@ const ShippingLabel = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        coords : state.selected_coordinates
+        coords : state.selected_coordinates,
+        img_url: state.sat_img_url,
     }
 }
 
-export default connect(mapStateToProps)(ShippingLabel);
+const mapDispatchToProps = (dispatch) => {
+    return  {
+        set_coords: (coords) => dispatch({ type: "set_coordinates", payload: coords}),
+        set_sat_img_url: (url) => dispatch({ type: "set_sat_img_url", payload: url})
+    }
+};
+
+export default connect(mapStateToProps, mapStateToProps)(ShippingLabel);

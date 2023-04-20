@@ -3,6 +3,8 @@ import Modal from '../modal/Modal';
 import "./Navbar.css";
 import eventBus from '../eventBus/EventBus';
 import image from '../../images/image.jpg';
+import http_service from '../../services/http';
+import { connect, useDispatch } from "react-redux";
 
 
 const Navbar = (props) => {
@@ -13,9 +15,16 @@ const Navbar = (props) => {
     const onSubmit = () => {
         props.blockUI.start('Fetching Satellite Image...');
         new Promise((resolve) => setTimeout(resolve, 5000)).then(() => {
-          console.log('5 seconds have passed');
-          props.blockUI.end();
-          props.setViewToMap([false, false, false, true])
+          const data = {
+            'selected_coordinates': props.selected_coordinates
+          } 
+          http_service.make_post_call('get_satellite_image',  data)
+          .then((data) => {
+            console.log('response from post call');
+            props.set_sat_img_url(data.img_url);
+            props.blockUI.end();
+            props.setViewToMap([false, false, false, true]);
+          })
         });
     }
 
@@ -48,4 +57,16 @@ const Navbar = (props) => {
     )
 }
 
-export default Navbar;
+const mapStateToProps = (state) => ({ 
+    selected_coordinates: state.selected_coordinates,
+    img_url: state.sat_img_url, 
+});
+
+const mapDispatchToProps = (dispatch) => {
+    return  {
+        set_coords: (coords) => dispatch({ type: "set_coordinates", payload: coords}),
+        set_sat_img_url: (url) => dispatch({ type: "set_sat_img_url", payload: url})
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

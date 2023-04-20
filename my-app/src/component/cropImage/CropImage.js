@@ -3,6 +3,7 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import image1 from "./image2.png"
 import './CropImage.css'
+import { connect, useDispatch } from "react-redux";
 
 const CropImage = (props) => {
 
@@ -105,7 +106,8 @@ const CropImage = (props) => {
                     getCroppedImg();
                   }}
                 >
-                  <img src={srcImg} onLoad={e => onLoad(e.target)} />
+                  <img crossOrigin='anonymous' src={props.img_url} onLoad={e => onLoad(e.target)} />
+                  {/* <img crossOrigin='anonymous' src={image1} onLoad={e => onLoad(e.target)} /> */}
                 </ReactCrop>
                 {/* <button className="cropButton" onClick={getCroppedImg}>
                   crop
@@ -113,9 +115,9 @@ const CropImage = (props) => {
               </div>
             )}
         </div>
-        <div id='cropped-img' className='image'>
+        <div id='cropped-img' className='image flex-center'>
           {result && (
-            <div style={{ width: "100%", height: "90%" }}>
+            <div className='flex-center' style={{ width: "100%", height: "90%" }}>
               <img src={result} alt="cropped image" />
             </div>
           )}
@@ -126,39 +128,23 @@ const CropImage = (props) => {
           </div>
         </div>
       </div>
-      {/* <div className="row">
-        <div className="col-6">
-          <h1> Select an image for selecting mask </h1>
-        </div>
-        <div>
-          {srcImg && (
-            <div>
-              <ReactCrop
-                style={{ maxWidth: "50%", maxHeight: "50%" }}
-                crop={crop}
-                onChange={setCrop}
-              >
-                <img src={srcImg} onLoad={e => onLoad(e.target)} />
-              </ReactCrop>
-              <button className="cropButton" onClick={getCroppedImg}>
-                crop
-              </button>
-            </div>
-          )}
-          {result && (
-            <div className="col-6">
-              <h1> cropped image </h1>
-              <img src={result} alt="cropped image" width={500} height={500}/>
-            </div>
-          )}
-          <button className="downloadButton" onClick={downloadImage}>
-            download
-          </button>
-
-        </div>
-      </div> */}
     </div>
   );
 };
 
-export default CropImage;
+const mapStateToProps = (state) => {
+  return {
+      coords : state.selected_coordinates,
+      img_url: state.sat_img_url,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return  {
+      set_coords: (coords) => dispatch({ type: "set_coordinates", payload: coords}),
+      set_sat_img_url: (url) => dispatch({ type: "set_sat_img_url", payload: url})
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CropImage);
+

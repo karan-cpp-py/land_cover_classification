@@ -36,7 +36,6 @@ const Map = (props) => {
             'lon2': coords[2]['lng']
         }
 
-        console.log(latlongs)
         props.set_coords(latlongs)
      }
 
