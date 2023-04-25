@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import image1 from "./image2.png"
-// import test_img from '../../images/test.png';
+import test_img from '../../images/test.png';
 import test_img2 from '../../images/image2.jpg';
 import './CropImage.css'
 import { connect, useDispatch } from "react-redux";
@@ -91,8 +91,9 @@ const CropImage = (props) => {
       .then((data) => {
         console.log('response from post call');
         console.log(data)
+        setResult(data['mask'])
         props.blockUI.end();
-        props.setViewToMap([false, false, true, false]);
+        // props.setViewToMap([false, false, true, false]);
       })
     });
 
