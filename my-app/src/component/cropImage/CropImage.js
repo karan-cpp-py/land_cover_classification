@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import image1 from "./image2.png"
+// import test_img from '../../images/test.png';
+import test_img2 from '../../images/image2.jpg';
 import './CropImage.css'
 import { connect, useDispatch } from "react-redux";
+import http_service from '../../services/http';
 
 const CropImage = (props) => {
 
@@ -41,7 +44,7 @@ const CropImage = (props) => {
       );
 
 
-      const base64Image = canvas.toDataURL("image/jpeg");
+      const base64Image = canvas.toDataURL("image/png", 1.0);
       setResult(base64Image);
     } catch (e) {
       console.log("Error cropping the image:", e);
@@ -83,10 +86,20 @@ const CropImage = (props) => {
   const classify = () => {
     props.blockUI.start('Analysing...')
     new Promise((resolve) => setTimeout(resolve, 5000)).then(() => {
-      console.log('5 seconds have passed');
-      props.blockUI.end();
-      props.setViewToMap([false, false, true, false])
+      const data = {'image': result}
+      http_service.make_post_call('analyse',  data)
+      .then((data) => {
+        console.log('response from post call');
+        console.log(data)
+        props.blockUI.end();
+        props.setViewToMap([false, false, true, false]);
+      })
     });
+
+    props.blockUI.start('Fetching Satellite Image...');
+        new Promise((resolve) => setTimeout(resolve, 5000)).then(() => {
+          
+        });
   }
 
   return (
@@ -106,8 +119,8 @@ const CropImage = (props) => {
                     getCroppedImg();
                   }}
                 >
-                  <img crossOrigin='anonymous' src={props.img_url} onLoad={e => onLoad(e.target)} />
-                  {/* <img crossOrigin='anonymous' src={image1} onLoad={e => onLoad(e.target)} /> */}
+                  {/* <img crossOrigin='anonymous' src={props.img_url} onLoad={e => onLoad(e.target)} /> */}
+                  <img crossOrigin='anonymous' src={test_img2} onLoad={e => onLoad(e.target)} />
                 </ReactCrop>
                 {/* <button className="cropButton" onClick={getCroppedImg}>
                   crop
