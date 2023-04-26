@@ -91,16 +91,13 @@ const CropImage = (props) => {
       .then((data) => {
         console.log('response from post call');
         console.log(data)
-        setResult(data['mask'])
+        props.set_pred_percent(data['result'])
+        props.set_cropped_img(result)
+        props.set_pred_mask(data['mask'])
         props.blockUI.end();
-        // props.setViewToMap([false, false, true, false]);
+        props.setViewToMap([false, false, true, false]);
       })
     });
-
-    props.blockUI.start('Fetching Satellite Image...');
-        new Promise((resolve) => setTimeout(resolve, 5000)).then(() => {
-          
-        });
   }
 
   return (
@@ -156,7 +153,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return  {
       set_coords: (coords) => dispatch({ type: "set_coordinates", payload: coords}),
-      set_sat_img_url: (url) => dispatch({ type: "set_sat_img_url", payload: url})
+      set_sat_img_url: (url) => dispatch({ type: "set_sat_img_url", payload: url}),
+      set_cropped_img: (img) => dispatch({type: "set_cropped_img", payload: img}),
+      set_pred_mask: (img) => dispatch({type: "set_pred_mask", payload: img}),
+      set_pred_percent: (data) => dispatch({type: "set_pred_percent", payload: data}),
   }
 };
 

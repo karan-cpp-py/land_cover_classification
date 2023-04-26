@@ -20,6 +20,8 @@ const ShippingLabel = (props) => {
 
     useEffect(() => {
         window.scrollTo(0,0)
+        setData([props.pred_percent['others'], props.pred_percent['agriculture'], props.pred_percent['forest']])
+        // console.log(props)
     }, []);
 
     // const createPDF = async () => {
@@ -50,11 +52,11 @@ const ShippingLabel = (props) => {
         <div id="result-container" className='flex-center'>
             <div id='parent-grid'>
                 <div id='selected-img' className='result-item'>
-                    <img src={image2} alt="Image 2" className='result-img'/>
+                    <img src={props.cropped_img} alt="Image 2" className='result-img'/>
                     <figcaption className='caption'>Selected satellite image</figcaption>
                 </div>
                 <div id='mask-img' className='result-item'>
-                    <img src={image1} alt="Image 1" className='result-img'/>
+                    <img src={props.pred_mask} alt="Image 1" className='result-img'/>
                     <figcaption className='caption'>Generated Mask</figcaption>
                 </div>
                 <div id='graph-img' className='result-item flex-center'>
@@ -65,9 +67,9 @@ const ShippingLabel = (props) => {
                         <div id='analysis-text' className='flex-center'>
                             <h4><b>Analysis Result</b></h4>
                             <br/>
-                            <p>Agricultural land : <b>30%</b></p>
-                            <p>Forest land : <b>50%</b></p>
-                            <p>Others : <b>20%</b></p>
+                            <p>Agricultural land : <b>{data[1].toFixed(2)}%</b></p>
+                            <p>Forest land : <b>{data[2].toFixed(2)}%</b></p>
+                            <p>Others : <b>{data[0].toFixed(2)}%</b></p>
                         </div>
                     </div>
                 </div>
@@ -84,6 +86,9 @@ const mapStateToProps = (state) => {
     return {
         coords : state.selected_coordinates,
         img_url: state.sat_img_url,
+        cropped_img: state.cropped_img,
+        pred_mask: state.pred_mask,
+        pred_percent: state.pred_percent,
     }
 }
 
@@ -94,4 +99,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapStateToProps)(ShippingLabel);
+export default connect(mapStateToProps, mapDispatchToProps)(ShippingLabel);
