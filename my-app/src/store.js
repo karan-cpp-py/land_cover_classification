@@ -4,6 +4,7 @@ const initialState = {
     selected_coordinates : {},
     sat_img_url: '',
     cropped_img: '',
+    uncropped_img: '',
     pred_mask: '',
     pred_percent: {},
  };
@@ -34,6 +35,11 @@ function reducer(state = initialState, action) {
         return {
           ...state,
           pred_percent: action.payload,
+        }
+    case "set_uncropped_img":
+        return {
+          ...state,
+          uncropped_img: action.payload,
         }
     default:
       return state;

@@ -3,6 +3,7 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import image1 from "./image2.png"
 import test_img from '../../images/test.png';
+import test_img1 from '../../images/test1.png';
 import test_img2 from '../../images/image2.jpg';
 import './CropImage.css'
 import { connect, useDispatch } from "react-redux";
@@ -13,7 +14,7 @@ const CropImage = (props) => {
   const [srcImg, setSrcImg] = useState(image1);
   const [image, setImage] = useState(null);
   const [crop, setCrop] = useState({ aspect: 1 / 1 });
-  const [result, setResult] = useState(image1);
+  const [result, setResult] = useState(null);
 
   const getCroppedImg = async () => {
     try {

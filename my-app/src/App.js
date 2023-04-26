@@ -16,11 +16,12 @@ import eventBus from './component/eventBus/EventBus';
 import store from './store';
 import Footer from './component/home/Footer';
 import CropImage from './component/cropImage/CropImage';
+import UploadImage from './component/test/CropImage2';
 import BlockUI from './component/blockUI/BlockUI';
 
 function App() {
   // 0-home, 1-map, 2-result, 3-cropImage
-  const [show, setShow] = useState([true, false, false, false]);
+  const [show, setShow] = useState([true, false, false, false, false]);
   const [flag, setFlag] = useState(false);
   const [msg, setMsg] = useState('Loading...');
   const [user, setLoginUser] = useState({});
@@ -69,6 +70,7 @@ function App() {
           {show[1] && <Map setViewToMap={setShow} blockUI={blockUI} />}
           {show[2] && <Example />}
           {show[3] && <CropImage setViewToMap={setShow} blockUI={blockUI}/>}
+          {show[4] && <UploadImage setViewToMap={setShow} blockUI={blockUI}/>}
           <Footer />
         </div>
       </div>

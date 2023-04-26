@@ -189,6 +189,7 @@ const CropImage = (props) => {
                 src={src}
                 ref={cropperRef}
                 crop={handleCrop}
+                dragMode={"move"}
                 {...cropperOptions}
             />
             <button onClick={handleCrop}>Crop Image</button>

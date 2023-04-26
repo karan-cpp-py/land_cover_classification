@@ -43,7 +43,7 @@ const Navbar = (props) => {
                 <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, true, false, false])}>
                     Map
                 </div>
-                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, false, false, true])}>
+                <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, false, false, false, true])}>
                     Test
                 </div>
                 {props.currentShowMenu[1] && <div className = 'custom-navbar-item' onClick={onSubmit}>
