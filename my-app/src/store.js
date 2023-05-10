@@ -7,6 +7,7 @@ const initialState = {
     uncropped_img: '',
     pred_mask: '',
     pred_percent: {},
+    use_test_img: false,
  };
 
 function reducer(state = initialState, action) {
@@ -39,7 +40,12 @@ function reducer(state = initialState, action) {
     case "set_uncropped_img":
         return {
           ...state,
-          uncropped_img: action.payload,
+          sat_img_url: action.payload,
+        }
+    case "set_use_test_img":
+        return {
+          ...state,
+          use_test_img: action.payload,
         }
     default:
       return state;

@@ -118,8 +118,8 @@ const CropImage = (props) => {
                     getCroppedImg();
                   }}
                 >
-                  {/* <img crossOrigin='anonymous' src={props.img_url} onLoad={e => onLoad(e.target)} /> */}
-                  <img crossOrigin='anonymous' src={test_img2} onLoad={e => onLoad(e.target)} />
+                  { !props.use_test_img && <img crossOrigin='anonymous' src={props.img_url} onLoad={e => onLoad(e.target)} />}
+                  { props.use_test_img && <img crossOrigin='anonymous' src={test_img} onLoad={e => onLoad(e.target)} />}
                 </ReactCrop>
                 {/* <button className="cropButton" onClick={getCroppedImg}>
                   crop
@@ -148,6 +148,7 @@ const mapStateToProps = (state) => {
   return {
       coords : state.selected_coordinates,
       img_url: state.sat_img_url,
+      use_test_img: state.use_test_img,
   }
 }
 

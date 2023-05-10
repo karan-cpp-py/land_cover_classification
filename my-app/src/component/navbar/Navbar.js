@@ -5,6 +5,7 @@ import eventBus from '../eventBus/EventBus';
 import image from '../../images/image.jpg';
 import http_service from '../../services/http';
 import { connect, useDispatch } from "react-redux";
+import test_img from '../../images/test.png';
 
 
 const Navbar = (props) => {
@@ -22,6 +23,8 @@ const Navbar = (props) => {
           .then((data) => {
             console.log('response from post call');
             props.set_sat_img_url(data.img_url);
+            // props.set_sat_img_url(URL.createObjectURL(test_img));
+            props.set_use_test_img(true);
             props.blockUI.end();
             props.setViewToMap([false, false, false, true]);
           })
@@ -44,7 +47,7 @@ const Navbar = (props) => {
                     Map
                 </div>
                 <div className = 'custom-navbar-item' onClick={() => props.setViewToMap([false, false, false, false, true])}>
-                    Test
+                    Upload
                 </div>
                 {props.currentShowMenu[1] && <div className = 'custom-navbar-item' onClick={onSubmit}>
                     Submit
@@ -68,7 +71,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
     return  {
         set_coords: (coords) => dispatch({ type: "set_coordinates", payload: coords}),
-        set_sat_img_url: (url) => dispatch({ type: "set_sat_img_url", payload: url})
+        set_sat_img_url: (url) => dispatch({ type: "set_sat_img_url", payload: url}),
+        set_use_test_img: (val) => dispatch({ type: "set_use_test_img", payload: val}),
     }
 };
 

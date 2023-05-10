@@ -17,6 +17,7 @@ const ImageUpload = (props) => {
     reader.readAsDataURL(image);
     reader.onloadend = () => {
       props.set_uncropped_img(reader.result);
+      props.set_use_test_img(false);
       props.setViewToMap([false, false, false, true]);
     };
   };
@@ -40,6 +41,7 @@ const mapStateToProps = (state) => {
   const mapDispatchToProps = (dispatch) => {
     return  {
         set_uncropped_img: (img) => dispatch({type: "set_uncropped_img", payload: img}),
+        set_use_test_img: (val) => dispatch({ type: "set_use_test_img", payload: val}),
     }
   };
   
